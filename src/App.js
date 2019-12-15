@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 
 function App() {
    const [techs, setTech] = useState([]);
 
    const [newTech, setNewTech] = useState();
 
-   function handleAdd() {
+   //exemplo utilização useCallback, seve para utilizar no lugar de function, que são criadas todas as vezes que há alteração na function principal
+   // neste caso a função só sera executada quando houver alteração no newTech ou techs
+   const handleAdd = useCallback(() => {
       setTech([...techs, newTech]);
       setNewTech('');
-   }
+   }, [newTech, techs]);
 
    // executa apenas 1x, pois o array de monitoramento está vazio
    useEffect(() => {
